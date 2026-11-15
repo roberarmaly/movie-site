@@ -56,16 +56,18 @@ function App() {
 
           <button
             className={selectedGenre === "all" ? "btn btn--active" : "btn"}
-            onClick={() => setSelectedGenre("all")}
-          >
+            onClick={() => {
+            setSelectedGenre("all");
+            setVisibleCount(4);}}>
             הכל
           </button>
           {genres.map(genre => (
             <button
               key={genre}
               className={selectedGenre === genre ? "btn btn--active" : "btn"}
-              onClick={() => setSelectedGenre(genre)}
-            >
+              onClick={() => {
+              setSelectedGenre(genre);
+              setVisibleCount(4);}}>
               {genre}
             </button>
           ))}

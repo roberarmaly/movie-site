@@ -3,6 +3,7 @@ import "./MovieCard.css";
 
 function MovieCard({ title, year, duration, genre, rating, poster, available }) {
   const [liked, setLiked] = useState(false);
+  const [myRating, setMyRating] = useState(0);
  const [count, setCount] = useState(0);
   function handleLike() {
   setLiked(!liked);
@@ -28,6 +29,17 @@ function MovieCard({ title, year, duration, genre, rating, poster, available }) 
           <span className="movie-card__genre">{genre}</span>
           <span className="movie-card__rating">★ {rating}</span>
         </div>
+        <div className="movie-card__stars">
+    {[1, 2, 3, 4, 5].map((star) => (
+    <button
+      key={star}
+      className="star-button"
+      onClick={() => setMyRating(myRating === star ? 0 : star)}
+    >
+      {star <= myRating ? "★" : "☆"}
+    </button>
+  ))}
+</div>
       </div>
     </article>
   );

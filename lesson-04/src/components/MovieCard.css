@@ -95,6 +95,18 @@
   cursor: pointer;
 }
 
-.movie-card__like:hover {
-  background: var(--surface);
+
+.movie-card__stars{
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 12px;
+}
+.movie-card__stars button{
+  background: none;
+  border: none;
+    color: var(--gold);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
 }
