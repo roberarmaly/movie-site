@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
@@ -16,9 +17,11 @@ function App() {
     .filter((genre, index, all) => all.indexOf(genre) === index);
 
   let shownMovies = movies;
+
   if (onlyAvailable) {
     shownMovies = shownMovies.filter(movie => movie.available);
   }
+
   if (selectedGenre !== "all") {
     shownMovies = shownMovies.filter(movie => movie.genre === selectedGenre);
   }
@@ -27,16 +30,23 @@ function App() {
 
   function toggleAvailable() {
     setOnlyAvailable(!onlyAvailable);
+    setVisibleCount(4);
   }
 
   function showMore() {
-    setVisibleCount(visibleCount + 4);
+    setVisibleCount(prev => prev + 4);
+  }
+
+  function showLess() {
+    setVisibleCount(4);
   }
 
   return (
     <>
       <Header />
+
       <main className="page container">
+
         <section className="page__intro">
           <h1>הקטלוג</h1>
           <p>סרטים שכדאי לראות — הישנים הטובים והחדשים.</p>
@@ -45,6 +55,7 @@ function App() {
         <MovieList title="הכי מדורגים" movies={topRated} />
 
         <div className="toolbar">
+
           <button
             className={onlyAvailable ? "btn btn--active" : "btn"}
             onClick={toggleAvailable}
@@ -57,20 +68,26 @@ function App() {
           <button
             className={selectedGenre === "all" ? "btn btn--active" : "btn"}
             onClick={() => {
-            setSelectedGenre("all");
-            setVisibleCount(4);}}>
+              setSelectedGenre("all");
+              setVisibleCount(4);
+            }}
+          >
             הכל
           </button>
+
           {genres.map(genre => (
             <button
               key={genre}
               className={selectedGenre === genre ? "btn btn--active" : "btn"}
               onClick={() => {
-              setSelectedGenre(genre);
-              setVisibleCount(4);}}>
+                setSelectedGenre(genre);
+                setVisibleCount(4);
+              }}
+            >
               {genre}
             </button>
           ))}
+
         </div>
 
         <MovieList
@@ -78,14 +95,24 @@ function App() {
           movies={visibleMovies}
         />
 
-        {visibleCount < shownMovies.length && (
-          <div className="more">
+        <div className="more">
+
+          {visibleCount < shownMovies.length && (
             <button className="btn" onClick={showMore}>
               הצג עוד
             </button>
-          </div>
-        )}
+          )}
+
+          {visibleCount > 4 && (
+            <button className="btn" onClick={showLess}>
+              הצג פחות
+            </button>
+          )}
+
+        </div>
+
       </main>
+
       <Footer />
     </>
   );
